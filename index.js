@@ -14,7 +14,6 @@ app.use(express.json());
 
 //RUTAS (+PREFIJO)
 app.use("/tasks", require("./routes/tasks"));
-app.use("/tasksDeleted", require("./routes/tasksDeleted"));
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(docs));
 

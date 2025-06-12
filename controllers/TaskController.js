@@ -1,5 +1,4 @@
 const Task = require("../models/Task");
-const TaskDeleted = require("../models/TaskDeleted");
 
 const TaskController = {
   async create(req, res) {
@@ -76,9 +75,7 @@ const TaskController = {
   async delete(req, res) {
     try {
       const task = await Task.findByIdAndDelete(req.params._id)
-      const {title,completed} = task
-      await TaskDeleted.create({title,completed,expireAt:Date.now()});
-      res.send({ message: "Tarea eliminada con éxito" });
+      res.send({ message: "Tarea eliminada con éxito", task });
     } catch (error) {
       console.error(error);
       res.status(500).send({

@@ -10,7 +10,7 @@ module.exports = {
         parameters: [],
         responses: {
           200: {
-            description: "Tasks were obtained",
+            description: "Tarea creada con éxito",
             content: {
               "application/json": {
                 schema: {
@@ -19,8 +19,13 @@ module.exports = {
               },
             },
           },
+          500: {
+            description: "Ha habido un problema al obtener las tareas",
+          },
         },
       },
+    },
+    "/tasks/create": {
       post: {
         tags: {
           Tasks: "Create a task",
@@ -39,14 +44,15 @@ module.exports = {
         },
         responses: {
           201: {
-            description: "Task created successfully",
+            description: "Task creada con éxito",
           },
           500: {
-            description: "Server error",
+            description: "Error al crear la tarea",
           },
         },
       },
- "/tasks/{_id}": {
+    },
+    "/tasks/id/{_id}": {
       put: {
         tags: {
           Tasks: "Update a task",
@@ -60,7 +66,7 @@ module.exports = {
             schema: {
               $ref: "#/components/schemas/_id",
             },
-            description: "Id of Task to be updated",
+            description: "Id para actualizar tarea",
           },
         ],
         requestBody: {
@@ -71,12 +77,33 @@ module.exports = {
           },
         },
         responses: {
-          200: { description: "Task updated successfully" },
-          404: { description: "Task not found" },
-          500: { description: "Server error" },
+          200: { description: "Tarea actualizada con éxito" },
+          404: { description: "Tarea no encontrada" },
+          500: { description: "Error al actualizar la tarea" },
         },
       },
-    },
+      delete: {
+        tags: {
+          Tasks: "Delete a task",
+        },
+        description: "Deleting a Task",
+        operationId: "deleteTask",
+        parameters: [
+          {
+            name: "_id",
+            in: "path",
+            schema: {
+              $ref: "#/components/schemas/_id",
+            },
+            description: "Borrar una tarea",
+          },
+        ],
+        responses: {
+          200: { description: "Tarea eliminada con éxito" },
+          404: { description: "Tarea no encontrada" },
+          500: { description: "Error al eliminar la tarea" },
+        },
+      },
     },
   },
 };
